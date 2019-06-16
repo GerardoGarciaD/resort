@@ -1,11 +1,8 @@
 import React, { Component } from "react";
+import Hero from "../components/Hero";
 
 export default class Error extends Component {
   render() {
-    return (
-      <div>
-        <h1>Hello from error page</h1>
-      </div>
-    );
+    return <Hero />;
   }
 }
