@@ -4,6 +4,8 @@ import Banner from "../components/Banner";
 import Services from "../components/Services";
 import { Link } from "react-router-dom";
 
+import FeaturedRooms from "../components/FeaturedRooms";
+
 export default class Home extends Component {
   render() {
     // Se hace el llamado al componente hero y se pasa la prop hero asi como los "hijos" (children)
@@ -24,6 +26,7 @@ export default class Home extends Component {
         </Hero>
 
         <Services />
+        <FeaturedRooms />
       </>
     );
   }
