@@ -22,7 +22,7 @@ class RoomProvider extends Component {
     //   this.getData
     let rooms = this.formatData(items);
     // Aqui se guardan las habiaciones que  estan "destacadas" (featured == true)
-    let featuredRooms = rooms.filter(room => room.feature === true);
+    let featuredRooms = rooms.filter(room => room.featured === true);
 
     // Fialmente se cambia el estado y los objetos dentro de el
     this.setState({
@@ -33,7 +33,7 @@ class RoomProvider extends Component {
       sortedRooms: rooms,
       loading: false
     });
-    console.log(rooms);
+    // console.log(rooms);
   }
 
   //   Funcionr para formatear la informacion que se obtiene de data.js
@@ -56,10 +56,21 @@ class RoomProvider extends Component {
     return tempItems;
   }
 
+  /* Funcion que va a devolver solo la informacion una habitacion en especifico, la que haga 
+  match con el slug, al momemnto de ver una habitacion en especifico */
+  getRoom = slug => {
+    // Primero crea una variable que va a contener toda la informacion las habitaciones
+    let tempRooms = [this.state.rooms];
+    // Despues se va a buscar la habitacion que haga match con el slug que se obtiene como parametro
+    const room = tempRooms.find(room => room.slug === slug);
+    return room;
+  };
+
   render() {
     return (
-      //Se pasa pasa todo el contenido del estado haciendo destructuring (...this.state)
-      <RoomContext.Provider value={{ ...this.state }}>
+      /*Se pasa pasa todo el contenido del estado haciendo destructuring (...this.state), asi 
+      como tambien la funcion para obtener la informacion de una habitacion en especifico */
+      <RoomContext.Provider value={{ ...this.state, getRoom: this.getRoom }}>
         {this.props.children}
       </RoomContext.Provider>
     );
