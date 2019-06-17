@@ -7,11 +7,18 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
+// Se importa el RoomProvider del context
+import { RoomProvider } from "./context";
+
 ReactDOM.render(
-  // Se envuelve la el componente App en el router, para que en ese componente solo se hagan los path y switch
-  <Router>
-    <App />
-  </Router>,
+  // Se envuelve toda la aplicacion dentro del RoomProvider del contexto
+  <RoomProvider>
+    {/*Se envuelve la el componente App en el router, para que en ese componente
+    solo se hagan los path y switch */}
+    <Router>
+      <App />
+    </Router>
+  </RoomProvider>,
   document.getElementById("root")
 );
 
