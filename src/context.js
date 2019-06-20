@@ -80,4 +80,19 @@ class RoomProvider extends Component {
 // Se crea el consumer
 const RoomConsumer = RoomContext.Consumer;
 
+// Otra forma para poder tener acceso al contexto desde functional components
+/* en este caso se crea una funcion que toma como parametro el componente al que se le va a 
+pasar el contexto, despues otra funcion en la que se obtienen los props
+finalmente se regresa el RoomConsumer en donde a dentro va a estar el componente al que se 
+le van a pasar las propiedades y el conntexto */
+export function withRoomConsumer(Component) {
+  return function ConsumerWrapper(props) {
+    return (
+      <RoomConsumer>
+        {value => <Component {...props} context={value} />}
+      </RoomConsumer>
+    );
+  };
+}
+
 export { RoomProvider, RoomConsumer, RoomContext };
