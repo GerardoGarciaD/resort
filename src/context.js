@@ -9,7 +9,7 @@ const RoomContext = React.createContext();
 class RoomProvider extends Component {
   // Se crea el objeto que se va a pasar a toda la aplicacion
   state = {
-    romms: [],
+    rooms: [],
     sortedRooms: [],
     featuredRooms: [],
     loading: true
@@ -60,7 +60,7 @@ class RoomProvider extends Component {
   match con el slug, al momemnto de ver una habitacion en especifico */
   getRoom = slug => {
     // Primero crea una variable que va a contener toda la informacion las habitaciones
-    let tempRooms = [this.state.rooms];
+    let tempRooms = [...this.state.rooms];
     // Despues se va a buscar la habitacion que haga match con el slug que se obtiene como parametro
     const room = tempRooms.find(room => room.slug === slug);
     return room;
