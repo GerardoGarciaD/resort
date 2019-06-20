@@ -12,7 +12,16 @@ class RoomProvider extends Component {
     rooms: [],
     sortedRooms: [],
     featuredRooms: [],
-    loading: true
+    loading: true,
+    // "Variables" para hacer el filtro de las recamaras
+    type: "all",
+    capacity: 1,
+    price: 0,
+    minPrice: 0,
+    maxPrice: 0,
+    minSize: 0,
+    mazSize: 0,
+    pets: false
   };
 
   //   getData
@@ -24,6 +33,15 @@ class RoomProvider extends Component {
     // Aqui se guardan las habiaciones que  estan "destacadas" (featured == true)
     let featuredRooms = rooms.filter(room => room.featured === true);
 
+    /* Se obtienn los valores para ponerlos como maximos default, en este caso se obtiene 
+    el precio maximo, en donde se busca la habitacion con el mayor precio, pero se usa 
+    spread operator, por que la funcion Math.max, necesita de un array para encontrar el maximo
+    por lo que por cada item se van a ir "agregando" al array para que la funcion pueda encontrar el maximo  */
+    let maxPrice = Math.max(...rooms.map(item => item.price));
+    // console.log(maxPrice);
+    let maxSize = Math.max(...rooms.map(item => item.size));
+    // console.log(maxSize);
+
     // Fialmente se cambia el estado y los objetos dentro de el
     this.setState({
       /* Aqui no se pone rooms:rooms, por que la variable de el lifecycled method tiene el mismo 
@@ -31,7 +49,10 @@ class RoomProvider extends Component {
       rooms,
       featuredRooms,
       sortedRooms: rooms,
-      loading: false
+      loading: false,
+      price: maxPrice,
+      maxPrice,
+      maxSize
     });
     // console.log(rooms);
   }
@@ -66,11 +87,29 @@ class RoomProvider extends Component {
     return room;
   };
 
+  handleChange = event => {
+    const type = event.target.type;
+    const name = event.target.type;
+    const value = event.target.type;
+
+    console.log(type, name, value);
+  };
+
+  filterRooms = () => {
+    console.log("hello");
+  };
+
   render() {
     return (
       /*Se pasa pasa todo el contenido del estado haciendo destructuring (...this.state), asi 
       como tambien la funcion para obtener la informacion de una habitacion en especifico */
-      <RoomContext.Provider value={{ ...this.state, getRoom: this.getRoom }}>
+      <RoomContext.Provider
+        value={{
+          ...this.state,
+          getRoom: this.getRoom,
+          handleChange: this.handleChange
+        }}
+      >
         {this.props.children}
       </RoomContext.Provider>
     );
