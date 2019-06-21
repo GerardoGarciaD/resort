@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Hero from "../components/Hero";
 import Banner from "../components/Banner";
 
+// import del componente que contiene el room list y el room filter
+import RoomContainer from "../components/RoomContainer";
+
 import { Link } from "react-router-dom";
 export default class Rooms extends Component {
   render() {
@@ -10,15 +13,20 @@ export default class Rooms extends Component {
     return (
       // Se hace el llamado al componente hero y se pasa la prop hero asi como los "hijos" (children)
       // que en este caso va a ser otro componente
-      <Hero hero="roomsHero">
-        {/* Se manda a llamar el componente banner que manda las props title, subtitle y los hijos
+      <>
+        <Hero hero="roomsHero">
+          {/* Se manda a llamar el componente banner que manda las props title, subtitle y los hijos
         que en este caso es el <Link> */}
-        <Banner title="Our Rooms">
-          <Link to="/" className="btn-primary">
-            Back To Home
-          </Link>
-        </Banner>
-      </Hero>
+
+          <Banner title="Our Rooms">
+            <Link to="/" className="btn-primary">
+              Back To Home
+            </Link>
+          </Banner>
+        </Hero>
+
+        <RoomContainer />
+      </>
     );
   }
 }
