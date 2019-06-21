@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 // Se hace el destructuring de las props que se obtienen desde el componente FeaturedRooms
 export default function Room({ room }) {
-  console.log(room);
+  // console.log(room);
 
   //   se hace destructuring del objeto room que se obtiene como prop
   const { name, slug, images, price } = room;
