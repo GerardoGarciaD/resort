@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 // Se hace el import de la informacion de las recamaras
 import items from "./data";
+import { all } from "q";
 
 // Se crea el contexto
 const RoomContext = React.createContext();
@@ -21,7 +22,8 @@ class RoomProvider extends Component {
     maxPrice: 0,
     minSize: 0,
     mazSize: 0,
-    pets: false
+    pets: false,
+    breakfast: false
   };
 
   //   getData
@@ -88,15 +90,56 @@ class RoomProvider extends Component {
   };
 
   handleChange = event => {
-    const type = event.target.type;
-    const name = event.target.type;
-    const value = event.target.type;
+    const target = event.target;
+    // Se verifica si es entre un checkbox u otro tipo de input para obtener el valor
+    const value = event.type === "checkbox" ? target.checked : target.value;
+    // Se obtiene el nombre del input al que se le hace click, type, price, etc.
+    const name = event.target.name;
 
-    console.log(type, name, value);
+    // console.log(target, value, name);
+
+    // Finalmente se cambian los valores del estado
+    this.setState(
+      {
+        // /* se pone [name], por que es el valor que se va a editar y proviene directamente
+        // del nombre del input, type, price, etc. y despues se pone el valor del input */
+        [name]: value
+      },
+      // Se hace la callbackfunction para filtrar las recamaras con los nuevos valores del estado
+      // se hace esto por que solo se va a llamar la funcion cunado los valores del estado realmente cambian
+      this.filterRooms
+    );
   };
 
   filterRooms = () => {
-    console.log("hello");
+    // Cuando se hace la callback function, se hace destructuring de los nuevos valores del estado
+    let {
+      rooms,
+      type,
+      capacity,
+      price,
+      minPrice,
+      maxPrice,
+      minSize,
+      maxSize,
+      breakfast,
+      pets
+    } = this.state;
+
+    // Se guarda todo el contenido de el objeto rooms en la variable tempRooms mediante spread operator
+    let tempRooms = [...rooms];
+    // se verifica si el tipo es diferente de all, esto para hacer el filtrado
+    if (type !== "all") {
+      /* se hace el filtrado en donde se busca solo las recamaras que tengan el typo especifico 
+      (single, double, etc.) */
+      tempRooms = tempRooms.filter(room => room.type === type);
+    }
+
+    // Finalmente se cambia el valor de el estado
+    this.setState({
+      // se actualiza sortedRooms por que es el array que se muestra y utiliza para filtrar en el componente rooms
+      sortedRooms: tempRooms
+    });
   };
 
   render() {
