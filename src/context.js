@@ -128,11 +128,20 @@ class RoomProvider extends Component {
 
     // Se guarda todo el contenido de el objeto rooms en la variable tempRooms mediante spread operator
     let tempRooms = [...rooms];
+
+    /* Filtrado por tipo de habitacion */
     // se verifica si el tipo es diferente de all, esto para hacer el filtrado
     if (type !== "all") {
       /* se hace el filtrado en donde se busca solo las recamaras que tengan el typo especifico 
       (single, double, etc.) */
       tempRooms = tempRooms.filter(room => room.type === type);
+    }
+
+    /* Filtrado por capacidad de personas */
+    // Parsing de valores de la capacidad
+    capacity = parseInt(capacity);
+    if (capacity !== 1) {
+      tempRooms = tempRooms.filter(room => room.capacity >= capacity);
     }
 
     // Finalmente se cambia el valor de el estado
