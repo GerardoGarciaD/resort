@@ -92,7 +92,7 @@ class RoomProvider extends Component {
   handleChange = event => {
     const target = event.target;
     // Se verifica si es entre un checkbox u otro tipo de input para obtener el valor
-    const value = event.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     // Se obtiene el nombre del input al que se le hace click, type, price, etc.
     const name = event.target.name;
 
@@ -149,6 +149,21 @@ class RoomProvider extends Component {
     /* Filtrado por precios */
     price = parseInt(price);
     tempRooms = tempRooms.filter(room => room.price < price);
+
+    /* Filtrado por tamaño */
+    tempRooms = tempRooms.filter(
+      room => room.size >= minSize && room.size <= maxSize
+    );
+
+    /* Filtrado por breakfast */
+    if (breakfast) {
+      tempRooms = tempRooms.filter(room => room.breakfast === true);
+    }
+
+    /* Filtrado por pets */
+    if (pets) {
+      tempRooms = tempRooms.filter(room => room.pets === true);
+    }
 
     // Finalmente se cambia el valor de el estado
     this.setState({
