@@ -15,11 +15,10 @@ function RoomContainer({ context }) {
   }
 
   return (
-    <div>
-      <h1>Hello from Rooms Container</h1>
+    <>
       <RoomFilter rooms={rooms} />
       <RoomList rooms={sortedRooms} />
-    </div>
+    </>
   );
 }
 
