@@ -39,7 +39,7 @@ export default function RoomFilter({ rooms }) {
     pets
   } = context;
 
-  //   llamado a la funcion para obtener valores unicos
+  //   llamado a la funcion para obtener valores unicos (tipo de habitacion)
   let types = getUnique(rooms, "type");
 
   //   Añadir la opcion la opcion all al array al inicio del array con spread operators
@@ -47,6 +47,18 @@ export default function RoomFilter({ rooms }) {
 
   // mapeo para devolver options y ponerlo en el jsx
   types = types.map((item, index) => {
+    return (
+      <option value={item} key={index}>
+        {item}
+      </option>
+    );
+  });
+
+  //   llamado a la funcion para obtener valores unicos (capaidad de personas)
+  let people = getUnique(rooms, "capacity");
+
+  // mapeo para devolver options y ponerlo en el jsx
+  people = people.map((item, index) => {
     return (
       <option value={item} key={index}>
         {item}
@@ -73,6 +85,22 @@ export default function RoomFilter({ rooms }) {
           </select>
         </div>
         {/* END OF SELECT TYPE */}
+
+        {/* GUESTS */}
+        <div className="form-group">
+          <label htmlFor="capacity">Guess</label>
+          <select
+            name="capacity"
+            id="capacity"
+            value={capacity}
+            className="form-control"
+            onChange={handleChange}
+          >
+            {/* Se muestran los tipos de habitaciones */}
+            {people}
+          </select>
+        </div>
+        {/* END OF GUESTS */}
       </form>
     </section>
   );
